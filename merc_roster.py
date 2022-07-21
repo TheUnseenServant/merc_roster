@@ -58,11 +58,12 @@ class Char():
       self.age        = data_a[6]
       self.terms      = data_a[7]
       self.service    = data_a[8]
-      self.skills     = data_a[9]
+      #self.skills     = data_a[9]
+      self.set_skills(data_a[9])
       self.morale     = data_a[10] if len(data_a) > 10 else 4
       self.looks      = data_a[11] if len(data_a) > 11 else ""
       self.weapons    = {}
-      self.dex_mod    = self.stat_modifier(self.upp, 1)
+      self.dex_mod    = self.stat_modifier(1)
 
   def format_string(self):
     if self.gender:
@@ -88,8 +89,8 @@ class Char():
     f_string += "\n"
     return f_string
 
-  def stat_modifier(self, upp, index):
-    stat = upp[index:index + 1].upper()
+  def stat_modifier(self, index):
+    stat = self.upp[index:index + 1].upper()
     if stat == 'F':
       mod = 3
     elif stat in ['C', 'D', 'E']:
@@ -109,12 +110,22 @@ class Char():
     return modifier
 
   def skill_level(self, skill):
-    return int(skill.split('-')[1])
+    skill_mod = -3
+    if skill in self.skills:
+      skill_mod = self.skills[skill] 
+    return skill_mod
 
   def add_weapon(self, weapon, skill):
     modifier = self.weapon_mod(skill)  # Just list the skill, have a skill array.
     self.weapons[weapon] = modifier
 
+  def set_skills(self, skill_string):
+    self.skills   = {}
+    skill_string  = skill_string.strip()
+    skill_string  = skill_string.replace(',', ' ')
+    for s in skill_string.split():
+      key, value = s.split('-')
+      self.skills[key.strip()] = int(value.strip())
 
 
 if __name__ == "__main__":
