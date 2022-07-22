@@ -1,0 +1,5 @@
+CPT:Jakob:Domici:m:7ABC56-7:32:4:Imperial Marines:Battledress-1, Blade-2, Demo-1, GunCbt(CbtR)-1, GunCbt(HighEWpns)-1, GunCbt(Laser)-2, GunCbt(Pistol)-0, HeavyWpns(GrenadeLauncher)-1, Instruction-2, Leader-2, Mechanic-1, Medic-1, Recon-1, Tactics-2:15:Jakob:ACR
+LT:Liv:Ellis:F:898AA8-B:34:4:Imperial Navy:Animals-0, Admin-0, Medic-0, Streetwise-2, Drive(Grav)-1, Deception-2, Comm-1, Computer-1, Electronics(Intrusion)-1, Investigate-2, Recon-2, GunCbt(Pistol)-2, VaccSuit-0:10:Mrs Domici:Pistol
+SGT:Beauregard:Dawson:M:A78487:26:2:Imperial Marines:Leader-2, GunCbt(CbtR)-1, Cutlass-1, GunCbt(Pistol)-1:10:Beau:ACR
+PVT:George:Ginger:M:696673:22:1:Army Infantry:GunCbt(CbtR)-2, HvyWpn(HighEnergy)-1, Computer-1, Brawling-1, GravV-0, GunCbt(Pistol)-0, Demo-0, Recon-0:10:George:ACR
+PVT:Lovena:Arcman:F:578898:22:1:Marine Infantry:GunCbt(CbtR)-2, ForwardObserver-1, ZeroG-1, HvyWpn(VRFGauss)-1, GravV-0, GunCbt(Pistol)-0:10:Love:ACR

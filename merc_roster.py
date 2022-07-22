@@ -11,22 +11,14 @@
 
 # TODO
 #   Add text file input processing.
+#    - Don't include headers or blank lines.
 #   Think through end user experience.  
 #   Error checking for input.
 #   Add tests.
 #   Process the skills
 
-
-## Sample data that needs to be put into a text file.
-# CPT:Jakob::Domici:m:7ABC56-7:32:4:Imperial Marines:Battledress-1, Blade-2, Demo-1, GunCbt(CbtR)-1, GunCbt(HighEWpns)-1, GunCbt(Laser)-2, GunCbt(Pistol)-0, HeavyWpns(GrenadeLauncher)-1, Instruction-2, Leader-2, Mechanic-1, Medic-1, Recon-1, Tactics-2:15
-
-#SGT:Beauregard:Beau:Dawson:M:A78487:26:2:Imperial Marines:Leader-2, GunCbt(CbtR)-1, Cutlass-1, GunCbt(Pistol)-1:10
-
-#PVT:Lovena:Love:Arcman:F:578898:22:1:Marine Infantry:GunCbt(CbtR)-2, Forward Observer-1, ZeroG-1, HvyWpn(VRF Gauss)-1, GravV-0, GunCbt(Pistol)-0:10
-
-#PVT:George:Ginger:M:696673:22:1:Army Infantry:GunCbt(CbtR)-2, HvyWpn(HighEnergy)-1, Computer-1, Brawling-1, GravV-0, GunCbt(Pistol)-0, Demo-0, Recon-0:10
-
-#:Liv:Mrs Domici:Ellis:F:898AA8-B:34:4:Imperial Navy:Animals-0, Admin-0, Medic-0, Streetwise-2, Drive(Grav)-1, Deception-2, Comm-1, Computer-1, Electronics(Intrusion)-1, Investigate-2, Recon-2, GunCbt(Pistol)-2, VaccSuit-0:?
+import argparse
+import random
 
 class Weapon():
   def __init__(self, line = ''):
@@ -52,16 +44,15 @@ class Char():
       self.rank       = data_a[0]
       self.first_name = data_a[1]
       self.last_name  = data_a[2]
-      self.nick_name  = data_a[3]
-      self.gender     = data_a[4]
-      self.upp        = data_a[5]
-      self.age        = data_a[6]
-      self.terms      = data_a[7]
-      self.service    = data_a[8]
-      #self.skills     = data_a[9]
-      self.set_skills(data_a[9])
-      self.morale     = data_a[10] if len(data_a) > 10 else 4
-      self.looks      = data_a[11] if len(data_a) > 11 else ""
+      self.gender     = data_a[3]
+      self.upp        = data_a[4]
+      self.age        = data_a[5]
+      self.terms      = data_a[6]
+      self.service    = data_a[7]
+      self.set_skills(data_a[8])
+      self.morale     = data_a[9] if len(data_a) > 10 else 4
+      self.nick_name  = data_a[10]
+      self.weapon     = data_a[11] if len(data_a) > 11 else ""
       self.weapons    = {}
       self.dex_mod    = self.stat_modifier(1)
 
@@ -69,12 +60,15 @@ class Char():
     if self.gender:
       self.gender = self.gender.upper()
     f_string = "{} {} ".format(self.rank, self.first_name)
-    if self.nick_name:
-      f_string += " {} ".format(self.nick_name)
-    f_string += "{} [{}] {} Age {}\n".format( self.last_name, self.gender, self.upp, self.age)
+    f_string += "{} [{}] {} Age: {}  ".format( self.last_name, self.gender, self.upp, self.age)
+    f_string += "Morale: {}  ".format(self.morale)
     f_string += "{} terms {}\n".format(self.terms, self.service)
-    f_string += "Skills {}\n".format(self.skills)
-    f_string += "Morale: {}\n".format(self.morale)
+    skill_string = ''
+    for key in self.skills.keys():
+      if len(skill_string) > 1:
+        skill_string += ", "
+      skill_string  += "{}-{}".format(key, self.skills[key])
+    f_string += "{}\n".format(skill_string)
     if len(self.weapons) > 0:
       counter = 0
       for weapon, skill in self.weapons.items():
@@ -86,7 +80,7 @@ class Char():
           signed = ""
         f_string += "{} at {}{}".format(weapon, signed, skill )
         counter += 1
-    f_string += "\n"
+      f_string += "\n"
     return f_string
 
   def stat_modifier(self, index):
@@ -128,8 +122,23 @@ class Char():
       self.skills[key.strip()] = int(value.strip())
 
 
-if __name__ == "__main__":
+def roll_2d6():
+  return random.randint(1,6) + random.randint(1,6)
 
+def show_roster(team):
+  for person in team:
+    print(person.format_string())
+
+def build_team(data):
+  team = []
+  #jakob.add_weapon('ACR', 'GunCbt(CbtR)-1')
+  #jakob.add_weapon('Lacar', 'GunCbt(Laser)-2')
+  for line in data:
+    person = Char(line)
+    team.append(person)
+  return team
+ 
+def build_weapons(file):
   weapons = {}
   # The lines needs to come from a text file
   lines = [
@@ -139,12 +148,39 @@ if __name__ == "__main__":
   for line in lines:
     new_weapon = Weapon(line)
     weapons[new_weapon.name] = new_weapon
-  
-  jakob_data = "CPT:Jakob::Domici:m:7ABC56-7:32:4:Imperial Marines:Battledress-1, Blade-2, Demo-1, GunCbt(CbtR)-1, GunCbt(HighEWpns)-1, GunCbt(Laser)-2, GunCbt(Pistol)-0, HeavyWpns(GrenadeLauncher)-1, Instruction-2, Leader-2, Mechanic-1, Medic-1, Recon-1, Tactics-2:15"
-  jakob = Char(jakob_data)
-  jakob.add_weapon('ACR', 'GunCbt(CbtR)-1')
-  jakob.add_weapon('Lacar', 'GunCbt(Laser)-2')
-  
-  print(jakob.format_string())
+
+def list_from_file(file):
+  with open(file, 'r') as f:
+    data  = []
+    l     = f.readlines()
+    for line in l:
+      clean_line = line.strip()
+      data.append(clean_line)
+  return data
+
+def roll_attacks(header, team):
+  attack_strings = []
+  for member in team:
+    attack_strings.append("{:<10} {:3}".format(member.nick_name, roll_2d6()))
+  print(header)
+  for s in attack_strings:
+    print(" ", s)
+
+if __name__ == "__main__":
+
+  parser = argparse.ArgumentParser()
+  parser.add_argument('-a', '--attack', action = "store_true")
+  args  = parser.parse_args()
+
+  semc_data = list_from_file('data/semc.txt')
+  semc = build_team(semc_data)
+
+  if args.attack:
+    roll_attacks("== SEMC rolls", semc)
+    print()
+
+  else:
+    show_roster(semc)
+
 
   
