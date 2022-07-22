@@ -16,9 +16,25 @@
 #   Error checking for input.
 #   Add tests.
 #   Process the skills
+#   Add a Builder
 
 import argparse
 import random
+
+class Combatant():
+  def __init__(self, person, weapon):
+    self.person = person
+    self.weapon = weapon
+
+  def key(self):
+    return self.person.nick_name
+
+  def weapon_mod(self):
+    weapon_used   = self.person.weapon
+    skill_needed  = self.weapon.skill
+    modifier      = self.person.skill_level(skill_needed) + self.person.dex_mod
+    return modifier
+
 
 class Weapon():
   def __init__(self, line = ''):
@@ -99,19 +115,11 @@ class Char():
       mod = 0
     return mod
 
-  def weapon_mod(self, skill):
-    modifier = self.dex_mod + self.skill_level(skill)
-    return modifier
-
   def skill_level(self, skill):
     skill_mod = -3
     if skill in self.skills:
       skill_mod = self.skills[skill] 
     return skill_mod
-
-  def add_weapon(self, weapon, skill):
-    modifier = self.weapon_mod(skill)  # Just list the skill, have a skill array.
-    self.weapons[weapon] = modifier
 
   def set_skills(self, skill_string):
     self.skills   = {}
@@ -131,8 +139,6 @@ def show_roster(team):
 
 def build_team(data):
   team = []
-  #jakob.add_weapon('ACR', 'GunCbt(CbtR)-1')
-  #jakob.add_weapon('Lacar', 'GunCbt(Laser)-2')
   for line in data:
     person = Char(line)
     team.append(person)
