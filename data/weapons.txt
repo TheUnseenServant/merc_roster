@@ -1,0 +1,2 @@
+9mmACR:GunCbt(CbtR):45 (6) +2:60 (3) +1: -
+4mmGauss:GunCbt(CbtR):60 (7) +3:120 (3) +2: -

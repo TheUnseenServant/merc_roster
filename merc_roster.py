@@ -19,6 +19,7 @@
 #   Add a Builder
 
 import argparse
+import collections
 import random
 
 class Combatant():
@@ -35,21 +36,12 @@ class Combatant():
     modifier      = self.person.skill_level(skill_needed) + self.person.dex_mod
     return modifier
 
+  def weapon_name(self):
+    return self.weapon.name
 
-class Weapon():
-  def __init__(self, line = ''):
-    self.make_data(line)
-
-  def make_data(self, line):
-    data          = line.split(':')
-    self.name     = data[0]
-    self.skill    = data[1]
-    self.has_auto = data[2]
-    self.short    = data[3]
-    self.medium   = data[4]
-    self.long     = data[5]
-
-
+  def format_string(self):
+    return self.person.format_string()
+ 
 class Char():
   def __init__(self, data = ''):
     self.set_data(data)
@@ -137,23 +129,36 @@ def show_roster(team):
   for person in team:
     print(person.format_string())
 
-def build_team(data):
+def build_team(data, weapons):
   team = []
   for line in data:
     person = Char(line)
-    team.append(person)
+    weapon = weapons[person.weapon]    
+    combatant = Combatant(person, weapon)
+    team.append(combatant)
   return team
  
+Weapon  = collections.namedtuple(
+            'Weapon', 
+            ['name', 'skill', 'effective', 'long', 'extreme']
+          )
+
+def make_weapon(line):
+  data       = line.split(':')
+  name       = data[0].strip()
+  skill      = data[1].strip()
+  effective  = data[2].strip()
+  long       = data[3].strip()
+  extreme    = data[4].strip()
+  return Weapon(name, skill, effective, long, extreme)
+
 def build_weapons(file):
   weapons = {}
-  # The lines needs to come from a text file
-  lines = [
-    "ACR:GunCbt(CbtR):yes:10/6:15/2:20/2",
-    "Lacar:GunCbt(Laser):no:10/8:15/4:20/2",
-  ]
-  for line in lines:
-    new_weapon = Weapon(line)
+  weapon_data = list_from_file(file)
+  for line in weapon_data:
+    new_weapon = make_weapon(line)
     weapons[new_weapon.name] = new_weapon
+  return weapons
 
 def list_from_file(file):
   with open(file, 'r') as f:
@@ -167,7 +172,14 @@ def list_from_file(file):
 def roll_attacks(header, team):
   attack_strings = []
   for member in team:
-    attack_strings.append("{:<10} {:3}".format(member.nick_name, roll_2d6()))
+    roll          = roll_2d6()
+    modified_roll = roll + member.weapon_mod()
+    long_roll     = modified_roll - 2
+    extreme_roll  = long_roll - 2
+    attack_strings.append("{:<10} {:3}    {:10} Effective:  {:2} [{}]  Long: {:2} [{}]  Extreme: {:2} [{}] ".format(
+      member.key(), roll, member.weapon_name(), modified_roll, member.weapon.effective,
+      long_roll, member.weapon.long, extreme_roll, member.weapon.extreme
+      ))
   print(header)
   for s in attack_strings:
     print(" ", s)
@@ -178,8 +190,10 @@ if __name__ == "__main__":
   parser.add_argument('-a', '--attack', action = "store_true")
   args  = parser.parse_args()
 
+  weapons = build_weapons('data/weapons.txt')
   semc_data = list_from_file('data/semc.txt')
-  semc = build_team(semc_data)
+  semc = build_team(semc_data, weapons)
+
 
   if args.attack:
     roll_attacks("== SEMC rolls", semc)

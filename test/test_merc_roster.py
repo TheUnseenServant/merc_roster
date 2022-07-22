@@ -11,17 +11,15 @@ class TestUSS268Chars(unittest.TestCase):
   def test_base_data(self):
     jakob_data = "CPT:Jakob:Domici:m:7ABC56-7:32:4:Imperial Marines:GunCbt(CbtR)-1:15:Jakob:ACR"
     jakob = merc_roster.Char(jakob_data)
-    #jakob.add_weapon('ACR', 'GunCbt(CbtR)-1')
     self.assertTrue(jakob.first_name == 'Jakob')
 
   def test_base_weapon(self):
-    weapon = merc_roster.Weapon("ACR:GunCbt(CbtR):yes:10/6:15/2:20/2")
-    self.assertTrue(weapon.name     == 'ACR')     
-    self.assertTrue(weapon.skill    == 'GunCbt(CbtR)')     
-    self.assertTrue(weapon.has_auto == 'yes')     
-    self.assertTrue(weapon.short    == '10/6')     
-    self.assertTrue(weapon.medium   == '15/2')     
-    self.assertTrue(weapon.long     == '20/2')     
+    weapon = merc_roster.make_weapon("9mmACR:GunCbt(CbtR):45 (6) +2:60 (3) +1: -")
+    self.assertTrue(weapon.name       == '9mmACR')     
+    self.assertTrue(weapon.skill      == 'GunCbt(CbtR)')     
+    self.assertTrue(weapon.effective  == '45 (6) +2')     
+    self.assertTrue(weapon.long       == '60 (3) +1')     
+    self.assertTrue(weapon.extreme    == '-')     
 
   def test_skill_mod(self):
     jakob_data = "CPT:Jakob:Domici:m:7ABC56-7:32:4:Imperial Marines:GunCbt(CbtR)-1:15:Jakob:ACR"
@@ -36,7 +34,7 @@ class TestUSS268Chars(unittest.TestCase):
 
   def test_combatant(self):
     person = merc_roster.Char("CPT:Jakob:Domici:m:7ABC56-7:32:4:Imperial Marines:GunCbt(CbtR)-1:15:Jakob:ACR")
-    weapon = merc_roster.Weapon("ACR:GunCbt(CbtR):yes:10/6:15/2:20/2")
+    weapon = merc_roster.make_weapon("9mmACR:GunCbt(CbtR):45 (6) +2:60 (3) +1: -")
     combatant = merc_roster.Combatant(person, weapon)
     self.assertTrue(combatant.key() == "Jakob")
     self.assertTrue(combatant.weapon_mod() == 2)
