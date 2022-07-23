@@ -12,11 +12,11 @@
 # TODO
 #   Add text file input processing.
 #    - Don't include headers or blank lines.
-#   Think through end user experience.  
+#   [done] Think through end user experience.  
 #   Error checking for input.
-#   Add tests.
+#   [done] Add tests.
 #   Process the skills
-#   Add a Builder
+#   [done] Add a Builder
 
 import argparse
 import collections
@@ -28,7 +28,7 @@ class Combatant():
     self.weapon = weapon
 
   def key(self):
-    return self.person.nick_name
+    return self.person.key
 
   def weapon_mod(self):
     weapon_used   = self.person.weapon
@@ -41,7 +41,20 @@ class Combatant():
 
   def format_string(self):
     return self.person.format_string()
- 
+
+
+class NPC():
+  def __init__(self, data):
+    data_a  = data.split(":")
+    self.key        = data_a[0]
+    self.morale     = int(data_a[1])
+    self.weapon     = data_a[2].strip()
+    self.dex_mod    = 0
+    
+  def skill_level(self, skill):
+    return 1 
+
+
 class Char():
   def __init__(self, data = ''):
     self.set_data(data)
@@ -59,8 +72,8 @@ class Char():
       self.service    = data_a[7]
       self.set_skills(data_a[8])
       self.morale     = data_a[9] if len(data_a) > 10 else 4
-      self.nick_name  = data_a[10]
-      self.weapon     = data_a[11] if len(data_a) > 11 else ""
+      self.key        = data_a[10]
+      self.weapon     = data_a[11].strip() if len(data_a) > 10 else ""
       self.weapons    = {}
       self.dex_mod    = self.stat_modifier(1)
 
@@ -132,7 +145,10 @@ def show_roster(team):
 def build_team(data, weapons):
   team = []
   for line in data:
-    person = Char(line)
+    if line.count(':') > 5:
+      person = Char(line)
+    else:
+      person = NPC(line)
     weapon = weapons[person.weapon]    
     combatant = Combatant(person, weapon)
     team.append(combatant)
@@ -165,9 +181,20 @@ def list_from_file(file):
     data  = []
     l     = f.readlines()
     for line in l:
-      clean_line = line.strip()
-      data.append(clean_line)
+      if line_clean(line):
+        data.append(line)
   return data
+
+def line_clean(line):
+  line = line.strip()
+  if len(line) < 5:
+    return False
+  if line[0] == '#':
+    return False
+  if line[0] == '/':
+    return False
+  return True
+
 
 def roll_attacks(header, team):
   attack_strings = []
@@ -176,7 +203,7 @@ def roll_attacks(header, team):
     modified_roll = roll + member.weapon_mod()
     long_roll     = modified_roll - 2
     extreme_roll  = long_roll - 2
-    attack_strings.append("{:<10} {:3}    {:10} Effective:  {:2} [{}]  Long: {:2} [{}]  Extreme: {:2} [{}] ".format(
+    attack_strings.append("{:<10} {:3}    {:10} Effective:  {:2} [{:10}]  Long: {:2} [{:10}]  Extreme: {:2} [{:10}] ".format(
       member.key(), roll, member.weapon_name(), modified_roll, member.weapon.effective,
       long_roll, member.weapon.long, extreme_roll, member.weapon.extreme
       ))
@@ -190,15 +217,17 @@ if __name__ == "__main__":
   parser.add_argument('-a', '--attack', action = "store_true")
   args  = parser.parse_args()
 
-  weapons = build_weapons('data/weapons.txt')
+  weapons   = build_weapons('data/weapons.txt')
   semc_data = list_from_file('data/semc.txt')
-  semc = build_team(semc_data, weapons)
+  npc_data  = list_from_file('data/npcs.txt')
 
+  semc = build_team(semc_data, weapons)
+  npcs = build_team(npc_data, weapons)
 
   if args.attack:
     roll_attacks("== SEMC rolls", semc)
     print()
-
+    roll_attacks("== API rolls", npcs)
   else:
     show_roster(semc)
 

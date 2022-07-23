@@ -39,5 +39,13 @@ class TestUSS268Chars(unittest.TestCase):
     self.assertTrue(combatant.key() == "Jakob")
     self.assertTrue(combatant.weapon_mod() == 2)
 
+  def test_npc(self):
+    npc = merc_roster.NPC("api_1:4:9mmACR")
+    self.assertTrue(npc.key == "api_1")
+    self.assertTrue(npc.morale == 4)
+    self.assertTrue(npc.weapon == "9mmACR")
+    self.assertTrue(npc.dex_mod == 0)
+    self.assertTrue(npc.skill_level("nothing") == 1)
+    
 if __name__ == "__main__":
   unittest.main()

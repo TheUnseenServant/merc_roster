@@ -1,2 +1,5 @@
 9mmACR:GunCbt(CbtR):45 (6) +2:60 (3) +1: -
-4mmGauss:GunCbt(CbtR):60 (7) +3:120 (3) +2: -
+4mmGaussR:GunCbt(CbtR):60 (7) +3:120 (3) +2: -
+4mmGaussP:GunCbt(Pistol):2 (4): 4 (3): 6 (1)
+7mmAK:GunCbt(CbtR):18 (3) +2:50 (2) +1: 75 (2) +0
+PGMP-13:HvyWpn(HighEnergy):45 (25):90 (12): 150 (1)
