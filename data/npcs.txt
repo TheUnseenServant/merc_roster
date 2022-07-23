@@ -1,3 +1,10 @@
+# The file format is:
+#   Key, the unique identifier
+#   Morale
+#   Weapon, which must be listed in weapons.txt
+# NPCs are assumed to have a Skill-1 in their primary weapon, and no Dex mod.
+
+
 api_1:4:7mmAK
 api_2:4:7mmAK
 api_3:4:7mmAK

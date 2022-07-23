@@ -1,3 +1,13 @@
+# File format is:
+#   Weapon name, used in the character files.
+#   Skill required. The program add the skill level to the modified rolls, 
+#       or apply a -3 if the skill does not exist.
+#     Note that a '0' value does not add, but precludes the penalty.
+#   Range data in the format of:
+#       "Striker Range  (Penetration at that Range)  Autofire Bonus"
+#     Range date provided for Effective, Long, and Extreme ranges
+#     A dash "-" indicates the weapon is not effctive at that range.
+
 9mmACR:GunCbt(CbtR):45 (6) +2:60 (3) +1: -
 4mmGaussR:GunCbt(CbtR):60 (7) +3:120 (3) +2: -
 4mmGaussP:GunCbt(Pistol):2 (4): 4 (3): 6 (1)
