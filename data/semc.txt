@@ -1,3 +1,24 @@
+# Lines starting with '#', like this one, will be ignored.
+# This file is for PCs, and detailed NPCs. It is used for both the roster, and die rolls.
+# Data cells are colon ':' delimited, and used by position index. 
+#   If there is no data for that cell, it must still have the colon.
+# The format is:
+#   Rank
+#   First Name
+#   Last Name
+#   Gender
+#   UPP. A "-" indicates a Psi roll.
+#   Age
+#   Terms
+#   Service
+#   Skills
+#     Each skill must be standardize, and not have spaces. 
+#     Each skill is in the format:   Skill-1, where "1" is the level. No spaces.
+#   Morale
+#   Short name, used as an identifying "key". Must be unique in the file.
+#   Weapon, which must also be in the "weapons.txt" file.
+
+
 CPT:Jakob:Domici:m:7ABC56-7:32:4:Imperial Marines:Battledress-1, Blade-2, Demo-1, GunCbt(CbtR)-1, GunCbt(HighEWpns)-1, GunCbt(Laser)-2, GunCbt(Pistol)-0, HeavyWpns(GrenadeLauncher)-1, Instruction-2, Leader-2, Mechanic-1, Medic-1, Recon-1, Tactics-2:15:Jakob:9mmACR
 LT:Liv:Ellis:F:898AA8-B:34:4:Imperial Navy:Animals-0, Admin-0, Medic-0, Streetwise-2, Drive(Grav)-1, Deception-2, Comm-1, Computer-1, Electronics(Intrusion)-1, Investigate-2, Recon-2, GunCbt(Pistol)-2, VaccSuit-0:10:Mrs Domici:4mmGaussP
 SGT:Beauregard:Dawson:M:A78487:26:2:Imperial Marines:Leader-2, GunCbt(CbtR)-1, Cutlass-1, GunCbt(Pistol)-1:10:Beau:9mmACR
