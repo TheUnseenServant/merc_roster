@@ -10,12 +10,12 @@
 #  Datafiles are colon delmited
 
 # TODO
-#   Add text file input processing.
-#    - Don't include headers or blank lines.
-#   [done] Think through end user experience.  
 #   Error checking for input.
+#   [done] Add text file input processing.
+#   [done] - Don't include headers or blank lines.
+#   [done] Think through end user experience.  
 #   [done] Add tests.
-#   Process the skills
+#   [done] Process and sort the skills
 #   [done] Add a Builder
 
 import argparse
@@ -85,7 +85,7 @@ class Char():
     f_string += "Morale: {}  ".format(self.morale)
     f_string += "{} terms {}\n".format(self.terms, self.service)
     skill_string = ''
-    for key in self.skills.keys():
+    for key in sorted(self.skills.keys()):
       if len(skill_string) > 1:
         skill_string += ", "
       skill_string  += "{}-{}".format(key, self.skills[key])
