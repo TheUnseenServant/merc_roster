@@ -46,6 +46,13 @@ class TestUSS268Chars(unittest.TestCase):
     self.assertTrue(npc.weapon == "9mmACR")
     self.assertTrue(npc.dex_mod == 0)
     self.assertTrue(npc.skill_level("nothing") == 1)
-    
+
+  def test_list_from_line(self):
+    line      = "   9mmACR:  GunCbt(CbtR)   :  45 (6) +2  :   60 (3) +1   : -  "    
+    sep       = ':'
+    expected  = ["9mmACR", "GunCbt(CbtR)", "45 (6) +2", "60 (3) +1", "-"]
+    result    = merc_roster.list_from_line(line, sep)
+    self.assertTrue(result == expected)
+
 if __name__ == "__main__":
   unittest.main()

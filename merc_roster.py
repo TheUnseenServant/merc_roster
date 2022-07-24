@@ -11,6 +11,9 @@
 
 # TODO
 #   Error checking for input.
+#   Add verbose roster data.
+#   Consider TOE layout.
+#   Add loadouts.
 #   [done] Add text file input processing.
 #   [done] - Don't include headers or blank lines.
 #   [done] Think through end user experience.  
@@ -142,10 +145,11 @@ def show_roster(team):
   for person in team:
     print(person.format_string())
 
-def build_team(data, weapons):
+def build_team(file, weapons, sep = ':'):
+  data = list_from_file(file)
   team = []
   for line in data:
-    if line.count(':') > 5:
+    if line.count(sep) > 5:
       person = Char(line)
     else:
       person = NPC(line)
@@ -155,26 +159,25 @@ def build_team(data, weapons):
   return team
  
 Weapon  = collections.namedtuple(
-            'Weapon', 
-            ['name', 'skill', 'effective', 'long', 'extreme']
+            'Weapon', ['name', 'skill', 'effective', 'long', 'extreme']
           )
 
-def make_weapon(line):
-  data       = line.split(':')
-  name       = data[0].strip()
-  skill      = data[1].strip()
-  effective  = data[2].strip()
-  long       = data[3].strip()
-  extreme    = data[4].strip()
-  return Weapon(name, skill, effective, long, extreme)
+def make_weapon(line, sep = ':'):
+  return Weapon(*list_from_line(line, sep))
 
-def build_weapons(file):
+def build_weapons(file, sep = ':'):
   weapons = {}
   weapon_data = list_from_file(file)
   for line in weapon_data:
-    new_weapon = make_weapon(line)
+    new_weapon = make_weapon(line, sep)
     weapons[new_weapon.name] = new_weapon
   return weapons
+
+def list_from_line(line, sep):
+  data = line.split(sep)
+  for index, item in enumerate(data):
+    data[index] = item.strip()
+  return data
 
 def list_from_file(file):
   with open(file, 'r') as f:
@@ -218,11 +221,11 @@ if __name__ == "__main__":
   args  = parser.parse_args()
 
   weapons   = build_weapons('data/weapons.txt')
-  semc_data = list_from_file('data/semc.txt')
-  npc_data  = list_from_file('data/npcs.txt')
+  #semc_data = list_from_file('data/semc.txt')
+  #npc_data  = list_from_file('data/npcs.txt')
 
-  semc = build_team(semc_data, weapons)
-  npcs = build_team(npc_data, weapons)
+  semc = build_team('data/semc.txt', weapons, sep = ':')
+  npcs = build_team('data/npcs.txt', weapons, sep = ':')
 
   if args.attack:
     roll_attacks("== SEMC rolls", semc)
