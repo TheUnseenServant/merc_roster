@@ -206,7 +206,7 @@ def roll_attacks(header, team):
     modified_roll = roll + member.weapon_mod()
     long_roll     = modified_roll - 2
     extreme_roll  = long_roll - 2
-    attack_strings.append("{:<10} {:3}    {:10} Effective:  {:2} [{:10}]  Long: {:2} [{:10}]  Extreme: {:2} [{:10}] ".format(
+    attack_strings.append("{:<14} {:3}    {:10} Effective:  {:2} [{:10}]  Long: {:2} [{:10}]  Extreme: {:2} [{:10}] ".format(
       member.key(), roll, member.weapon_name(), modified_roll, member.weapon.effective,
       long_roll, member.weapon.long, extreme_roll, member.weapon.extreme
       ))

@@ -13,3 +13,4 @@
 4mmGaussP:GunCbt(Pistol):20 (4): 40 (3): 60 (1)
 7mmAK:GunCbt(CbtR):180 (3) +2:500 (2) +1: 750 (2) +0
 PGMP-13:HvyWpn(HighEnergy):450 (25):900 (12): 1500 (1)
+HMG:HvyWpn(HMG):50 (6) +3: 100 (5) +2 : 150 (3) +1
