@@ -25,8 +25,11 @@ your own data, but the format of each file is structured and unforgiving.
 
 
 ## How to install Python
-Go to https://www.python.org/downloads/release/python-3105/  
- * Under "Files", pick the operating system and architecture you need  
- * For most current Windows, you can download the "Windows Installer (64-bit)"  
+Go to https://www.python.org/downloads
+
+ * Click the large yellow button to get a Windows or MacOS compatible Python
  * Click the installer and follow the prompts  
+ * For help with installing on Windows:  https://docs.python.org/3/using/windows.html  
+ * For help with installing on MacOS:  https://docs.python.org/3/using/mac.html
+
 
