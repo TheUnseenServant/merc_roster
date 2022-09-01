@@ -9,3 +9,6 @@ api_1:4:7mmAK
 api_2:4:7mmAK
 api_3:4:7mmAK
 api_4:4:7mmAK
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_0:7mmAK
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_1:7mmAK
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_2:7mmAK
