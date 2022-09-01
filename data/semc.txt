@@ -19,7 +19,7 @@
 #   Weapon, which must also be in the "weapons.txt" file.
 
 COL:Frank:Cross:M:ACBB85:33:3:Mercenary:BattleDress-1, Comms-0, Gravitics-1, GunCbt(Pistol)-1, GunCbt(Cbtr)-1, Mechanic-0, Blade-1, Recon-1, Gambling(Poker)-1, Streetwise-0, Drive(Grav)-1, Drive(Wheeled)-0:15:Frank:9mmACR
-LT:Freya:Ingridsdottir:F:999BF7:34:4:Scouts: Admin-1, Brawling-1, Computer-2, Electronics-2, Gravitics-1, GunCbt(CbtR)-3, Liaison-1, Navigation-1, Pilot-1, Sensors-2, ShipsBoat-1, Survival-0, Drive(Wheeled)-1, VaccSuit-1 : 15 : Freya : 4mmGaussR
+LT:Freya:Ingridsdottir:F:999BF7:34:4:Scouts: Admin-1, Brawling-1, Computer-2, Electronics-2, Gravitics-1, GunCbt(CbtR)-3, Liaison-1, Navigation-1, Pilot-1, Sensors-2, ShipsBoat-1, Survival-0, Drive(Wheeled)-1, VaccSuit-1 : 15 :Freya : 4mmGaussR
 CPT:Jakob:Domici:m:7ABC56-7:32:4:Imperial Marines:Battledress-1, Blade-2, Demo-1, GunCbt(CbtR)-1, GunCbt(HighEWpns)-1, GunCbt(Laser)-2, GunCbt(Pistol)-0, HvyWpn(GrenadeLauncher)-1, Instruction-2, Leader-2, Mechanic-1, Medic-1, Recon-1, Tactics-2:15:Jakob:9mmACR
 LT:Liv:Ellis:F:898AA8-B:34:4:Imperial Navy:Animals-0, Admin-0, Medic-0, Streetwise-2, Drive(Grav)-1, Deception-2, Comm-1, Computer-1, Electronics(Intrusion)-1, Investigate-2, Recon-2, GunCbt(Pistol)-2, VaccSuit-0:13:Mrs Domici:4mmGaussP
 SGT:Beauregard:Dawson:M:A78487:26:2:Imperial Marines:Leader-2, GunCbt(CbtR)-1, Cutlass-1, GunCbt(Pistol)-1:10:Beau:9mmACR

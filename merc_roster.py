@@ -31,7 +31,7 @@ class Combatant():
     self.weapon = weapon
 
   def key(self):
-    return self.person.key
+    return self.person.key.strip()
 
   def weapon_mod(self):
     weapon_used   = self.person.weapon
@@ -44,18 +44,6 @@ class Combatant():
 
   def format_string(self):
     return self.person.format_string()
-
-
-class NPC():
-  def __init__(self, data):
-    data_a  = data.split(":")
-    self.key        = data_a[0]
-    self.morale     = int(data_a[1])
-    self.weapon     = data_a[2].strip()
-    self.dex_mod    = 0
-    
-  def skill_level(self, skill):
-    return 1 
 
 
 class Char():
@@ -151,8 +139,6 @@ def build_team(file, weapons, sep = ':'):
   for line in data:
     if line.count(sep) > 5:
       person = Char(line)
-    else:
-      person = NPC(line)
     weapon = weapons[person.weapon]    
     combatant = Combatant(person, weapon)
     team.append(combatant)
@@ -206,7 +192,7 @@ def roll_attacks(header, team):
     modified_roll = roll + member.weapon_mod()
     long_roll     = modified_roll - 2
     extreme_roll  = long_roll - 2
-    attack_strings.append("{:<14} {:3}    {:10} Effective:  {:2} [{:10}]  Long: {:2} [{:10}]  Extreme: {:2} [{:10}] ".format(
+    attack_strings.append("{:<14} {:3}    {:10} Effective:  {:2} [{:10}]  Long: {:2} [{:12}]  Extreme: {:2} [{:10}] ".format(
       member.key(), roll, member.weapon_name(), modified_roll, member.weapon.effective,
       long_roll, member.weapon.long, extreme_roll, member.weapon.extreme
       ))

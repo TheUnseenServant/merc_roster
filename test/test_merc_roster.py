@@ -39,14 +39,6 @@ class TestUSS268Chars(unittest.TestCase):
     self.assertTrue(combatant.key() == "Jakob")
     self.assertTrue(combatant.weapon_mod() == 2)
 
-  def test_npc(self):
-    npc = merc_roster.NPC("api_1:4:9mmACR")
-    self.assertTrue(npc.key == "api_1")
-    self.assertTrue(npc.morale == 4)
-    self.assertTrue(npc.weapon == "9mmACR")
-    self.assertTrue(npc.dex_mod == 0)
-    self.assertTrue(npc.skill_level("nothing") == 1)
-
   def test_list_from_line(self):
     line      = "   9mmACR:  GunCbt(CbtR)   :  45 (6) +2  :   60 (3) +1   : -  "    
     sep       = ':'
