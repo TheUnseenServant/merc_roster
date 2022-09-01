@@ -35,7 +35,7 @@ def create_weapons_skills(list_):
         weapons[weapon.strip()] = skill.strip()
     return weapons
 
-base_string = "PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:{}:{}"
+base_string = "PVT:::M:777777:22:1::{}-1:7:{}:{}"
 
 if __name__ == "__main__":
 
@@ -43,13 +43,22 @@ if __name__ == "__main__":
     weapons_file = os.path.join(datadir, "weapons.txt")
     weapons_list = list_from_file(weapons_file)
     weapon_skills = create_weapons_skills(weapons_list)
+    help_epilog = "Useable weapons: " +  ', '.join(sorted(weapon_skills.keys()))
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--count", help = "Count of npcs", type = int, default = 10)
+    parser = argparse.ArgumentParser(epilog = help_epilog)
+    parser.add_argument("-c", "--count", help = "Count of npcs (default 10)", type = int, default = 10)
+    parser.add_argument("-w", "--weapon", help = "Weapon (default 7mmAK)", type = str, default = "7mmAK")
     args = parser.parse_args()
+
+    if args.weapon in weapon_skills.keys():
+        # This assumes the relevant skill is also present.
+        weapon = args.weapon
+        skill = weapon_skills[weapon]
+    else:
+        weapon = "7mmAK"
+        skill = "GunCbt(CbtR)"
 
     for x in range(args.count):
         ident = "npc_" + str(x)
-        print(base_string.format(ident, "6mmAK"))
+        print(base_string.format(skill, ident, weapon))
 
-    print(weapon_skills)

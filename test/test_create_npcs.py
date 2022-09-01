@@ -20,7 +20,9 @@ class TestCreateNPCs(unittest.TestCase):
         self.test_dir.cleanup()
 
     def test_string(self):
-        pass
+        expected = "PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_1:7mmAK"
+        result = create_npcs.base_string.format("GunCbt(CbtR)", "npc_1", "7mmAK")
+        self.assertTrue(result == expected)
 
     def test_list_from_string(self):
         list_ = create_npcs.list_from_file(self.test_file)
