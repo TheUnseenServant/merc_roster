@@ -1,0 +1,10 @@
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_0:7mmAK
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_1:7mmAK
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_2:7mmAK
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_3:7mmAK
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_4:7mmAK
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_5:7mmAK
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_6:7mmAK
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_7:7mmAK
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_8:7mmAK
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:npc_9:7mmAK
