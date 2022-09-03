@@ -204,7 +204,8 @@ def line_clean(line):
 
 
 def roll_attacks(header, team):
-    """ [TODO] split this up  Rolls attacks for each combatant """
+    """ Rolls attacks for each combatant """
+    # This needs to be split into data, calculations, and actions. ugh!
     attack_strings = []
     for member in team:
         roll          = roll_2d6()
@@ -224,7 +225,8 @@ if __name__ == "__main__":
     datadir = 'data'
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-a', '--attack', action = "store_true")
+    parser.add_argument('-a', '--attack', action = "store_true", help = "roll for attacks")
+    parser.add_argument('-c', '--count', help = "how many rounds", default = 1, type = int)
     parser.add_argument('-f', '--file', help = "file for character data", default = "team.txt") 
     args  = parser.parse_args()
 
@@ -248,8 +250,16 @@ if __name__ == "__main__":
             team_name = args.file.split('.')[0].upper()
         else:
             team_name = "Team"
-        attack_title = "== {} Attack rolls".format(team_name)
-        roll_attacks(attack_title, team)
+        if args.count > 1:
+            count = 1
+            for c in range(count, args.count +1):
+                attack_title = "== Round {}: {} Attack rolls".format(count, team_name)
+                roll_attacks(attack_title, team)
+                count += 1
+                print("\n\n") 
+        else:
+            attack_title = "== {} Attack rolls".format(team_name)
+            roll_attacks(attack_title, team)
     else:
         show_roster(team)
 
