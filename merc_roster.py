@@ -237,6 +237,7 @@ if __name__ == "__main__":
         team_data_file = os.path.join(datadir, args.file)
     else:
         team_data_file = os.path.join(datadir, 'team.txt')
+    team_name = os.path.basename(team_data_file).split('.')[0].upper()
 
     if os.access(team_data_file, os.R_OK):
         team = build_team(team_data_file, weapons, sep = ':')
@@ -246,10 +247,6 @@ if __name__ == "__main__":
 
     if args.attack:
         # Make this a method.
-        if args.file:
-            team_name = args.file.split('.')[0].upper()
-        else:
-            team_name = "Team"
         if args.count > 1:
             count = 1
             for c in range(count, args.count +1):

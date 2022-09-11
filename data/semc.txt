@@ -58,3 +58,17 @@ PVT::::7866C2:22:1:Rogue:Robotics-2, Comms-1, Streetwise-1, Drive(Wheeled)-0, Co
 PVT::::9A77B3:26:2:Merc (Support):Comms-2, Electronics-1, Drive(Grav)-0, Computer-0, GunCbt(CbtR)-0:4:Florence:9mmACR
 PVT:::M:767723:22:1:Army:Drive(Grav)-1, Computer-0, GunCbt(CbtR)-2, GunCbt(Pistol)-1, Bribery-1:4:Camp Freddie:9mmACR
 
+SGT:::M:777777:32:1::GunCbt(CbtR)-1:7:Gaughan:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:Lannigan:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:Quigley:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:Costello:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:Farry:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:Scollan:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:Dolan:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:McHugh:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:Flynn:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:Kelly:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:Shannon:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:Cleary:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:Gallagher:9mmACR
+PVT:::M:777777:22:1::GunCbt(CbtR)-1:7:Flaherty:9mmACR
