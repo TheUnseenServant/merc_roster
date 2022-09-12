@@ -202,7 +202,7 @@ def line_clean(line):
         return False
     return True
 
-def attack_rounds(count = 1):
+def attack_rounds(team, team_name, count = 1):
     if count > 1:
         cbt_round = 1
         for c in range(cbt_round, count + 1):
@@ -231,6 +231,11 @@ def roll_attacks(header, team):
     for s in attack_strings:
         print(" ", s)
 
+def print_attacks(header, data):
+    print(header)
+    for s in data:
+        print(" ", s)
+
 if __name__ == "__main__":
 
     datadir = 'data'
@@ -257,7 +262,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if args.attack:
-        attack_rounds(args.count)
+        attack_rounds(team, team_name, args.count)
     else:
         show_roster(team)
 
