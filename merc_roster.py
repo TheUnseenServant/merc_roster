@@ -202,6 +202,17 @@ def line_clean(line):
         return False
     return True
 
+def attack_rounds(count = 1):
+    if count > 1:
+        cbt_round = 1
+        for c in range(cbt_round, count + 1):
+            header = "== Round {}: {} Attack rolls".format(cbt_round, team_name)
+            roll_attacks(header, team)
+            cbt_round += 1
+            print("\n\n") 
+    else:
+        header = "== {} Attack rolls".format(team_name)
+        roll_attacks(header, team)
 
 def roll_attacks(header, team):
     """ Rolls attacks for each combatant """
@@ -246,17 +257,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if args.attack:
-        # Make this a method.
-        if args.count > 1:
-            count = 1
-            for c in range(count, args.count +1):
-                attack_title = "== Round {}: {} Attack rolls".format(count, team_name)
-                roll_attacks(attack_title, team)
-                count += 1
-                print("\n\n") 
-        else:
-            attack_title = "== {} Attack rolls".format(team_name)
-            roll_attacks(attack_title, team)
+        attack_rounds(args.count)
     else:
         show_roster(team)
 
