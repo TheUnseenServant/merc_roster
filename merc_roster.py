@@ -57,6 +57,7 @@ class Char():
   
     def set_data(self, data): 
         """ Processes the data string and sets the character attributes """
+        # The data_a count looks fragile.
         if len(data) > 2:
             data_a          = data.split(":")
             self.rank       = data_a[0]
@@ -156,7 +157,8 @@ def build_team(file, weapons, sep = ':'):
         combatant = Combatant(person, weapon)
         team.append(combatant)
     return team
-  
+ 
+# Not sure a namedtuple is the right choice for this.      
 Weapon  = collections.namedtuple(
                         'Weapon', ['name', 'skill', 'effective', 'long', 'extreme']
                     )
@@ -196,27 +198,24 @@ def line_clean(line):
     line = line.strip()
     if len(line) < 5:
         return False
-    if line[0] == '#':
-        return False
-    if line[0] == '/':
+    if line[0] in ['#', '/']:
         return False
     return True
 
-def attack_rounds(team, team_name, count = 1):
+def print_attack_rounds(team, team_name, count = 1):
+    """ Outputs count number of attack rounds, with header """
     if count > 1:
         cbt_round = 1
         for c in range(cbt_round, count + 1):
             header = "== Round {}: {} Attack rolls".format(cbt_round, team_name)
-            roll_attacks(header, team)
+            print_attacks(header, roll_attacks(team))
             cbt_round += 1
-            print("\n\n") 
     else:
         header = "== {} Attack rolls".format(team_name)
-        roll_attacks(header, team)
+        print_attacks(header, roll_attacks(team))
 
-def roll_attacks(header, team):
+def roll_attacks(team):
     """ Rolls attacks for each combatant """
-    # This needs to be split into data, calculations, and actions. ugh!
     attack_strings = []
     for member in team:
         roll          = roll_2d6()
@@ -227,14 +226,15 @@ def roll_attacks(header, team):
             member.key(), roll, member.weapon_name(), modified_roll, member.weapon.effective,
             long_roll, member.weapon.long, extreme_roll, member.weapon.extreme
             ))
-    print(header)
-    for s in attack_strings:
-        print(" ", s)
+    return attack_strings
 
 def print_attacks(header, data):
+    """ Prints the header, and then each attack on a new line """
     print(header)
     for s in data:
         print(" ", s)
+    print("\n\n") 
+
 
 if __name__ == "__main__":
 
@@ -262,7 +262,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if args.attack:
-        attack_rounds(team, team_name, args.count)
+        print_attack_rounds(team, team_name, args.count)
     else:
         show_roster(team)
 
